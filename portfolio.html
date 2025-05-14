@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio Junior IT Admin - Mikołaj</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Mono&family=Roboto&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<br>
+  <!-- Przycisk Dark/Light -->
+  <button id="toggleThemeBtn" aria-pressed="false" title="Przełącz tryb jasny/ciemny">🌙</button>
+
+  <!-- Animowany terminal -->
+  <section id="hero" aria-label="Animowany terminal z przykładowymi komendami">
+    <div id="typed"></div>
+  </section>
+
+  <!-- O mnie -->
+  <section id="about" aria-label="O mnie">
+  <div id="about-photo">
+    <img src="twoje-zdjecie.jpg" alt="Mikołaj Kocik - zdjęcie profilowe" />
+  </div>
+  <div id="about-text">
+    <h2>O mnie</h2>
+    <p>Cześć! Jestem Mikołaj, aspirujący Junior IT Administrator i Helpdesk. Pasjonuję się zarządzaniem sieciami, wsparciem użytkowników i rozwiązywaniem problemów IT. Chętnie uczę się nowych technologii i rozwijam swoje umiejętności.</p>
+  </div>
+</section>
+
+  <!-- Umiejętności - chmurka narzędzi -->
+  <section id="skills" aria-label="Umiejętności i narzędzia">
+    <h2>Moje narzędzia</h2>
+    <div class="skill" tabindex="0" aria-describedby="tooltip-git">
+      Git
+      <div class="tooltip" id="tooltip-git">System kontroli wersji, który pozwala zarządzać kodem i współpracować z zespołem.</div>
+    </div>
+    <div class="skill" tabindex="0" aria-describedby="tooltip-wireshark">
+      Wireshark
+      <div class="tooltip" id="tooltip-wireshark">Narzędzie do analizy ruchu sieciowego i diagnozowania problemów.</div>
+    </div>
+    <div class="skill" tabindex="0" aria-describedby="tooltip-windows">
+      Windows
+      <div class="tooltip" id="tooltip-windows">System operacyjny, na którym zarządzam użytkownikami i zasobami.</div>
+    </div>
+    <div class="skill" tabindex="0" aria-describedby="tooltip-linux">
+      Linux
+      <div class="tooltip" id="tooltip-linux">System operacyjny do pracy z serwerami i skryptami.</div>
+    </div>
+    <div class="skill" tabindex="0" aria-describedby="tooltip-azure">
+      Azure
+      <div class="tooltip" id="tooltip-azure">Platforma chmurowa do zarządzania infrastrukturą i usługami.</div>
+    </div>
+  </section>
+
+  <!-- Portfolio -->
+  <section id="portfolio" aria-label="Projekty i laboratoria">
+    <h2>Portfolio</h2>
+    <div class="project-card" tabindex="0" aria-labelledby="proj1-title" aria-describedby="proj1-desc">
+      <div class="project-inner">
+        <div class="project-front">
+          <h3 id="proj1-title">Symulator Konsoli</h3>
+          <p>Interaktywny terminal z podstawowymi komendami.</p>
+        </div>
+        <div class="project-back" id="proj1-desc">
+          <p>Projekt pokazujący animowany terminal z symulacją komend sieciowych i systemowych.</p>
+          <a href="#" target="_blank" rel="noopener noreferrer">Zobacz kod</a>
+        </div>
+      </div>
+    </div>
+    <div class="project-card" tabindex="0" aria-labelledby="proj2-title" aria-describedby="proj2-desc">
+      <div class="project-inner">
+        <div class="project-front">
+          <h3 id="proj2-title">Quiz IT</h3>
+          <p>Krótki quiz z pytaniami o podstawy IT.</p>
+        </div>
+        <div class="project-back" id="proj2-desc">
+          <p>Quiz pozwalający na sprawdzenie wiedzy z zakresu sieci i systemów operacyjnych.</p>
+          <a href="#" target="_blank" rel="noopener noreferrer">Zobacz kod</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Laby na bieżąco z GitHub -->
+  <section id="commits" aria-label="Ostatnie aktywności na GitHub">
+  <h2>Ostatnie aktywności na GitHub</h2>
+  <ul id="commits-list" style="list-style:none;padding:0;"></ul>
+</section>
+
+  <!-- Kontakt -->
+  <section id="contact" aria-label="Kontakt">
+    <h2>Kontakt</h2>
+    <p>Zapraszam do kontaktu: </p>
+    <a href="mailto:mikolaj@example.com" aria-label="Wyślij email">Email</a>
+    <a href="https://www.linkedin.com/in/mikolaj" target="_blank" rel="noopener noreferrer" aria-label="Profil LinkedIn">LinkedIn</a>
+    <a href="https://github.com/MikolajKocik" target="_blank" rel="noopener noreferrer" aria-label="Profil GitHub">GitHub</a>
+  </section>
+
+  <footer>
+    &copy; 2025 Mikołaj -  Portfolio
+  </footer>
+
+  <!-- Skrypty -->
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <script>
+    // Animowany terminal - Typed.js
+    var typed = new Typed('#typed', {
+      strings: [
+        "C:\\Users\\Mikolaj> ipconfig\nIPv4 Address. . . . . . . . . . . : 192.168.1.100",
+        "C:\\Users\\Mikolaj> ping google.com\nReply from 142.250.74.14: bytes=32 time=15ms TTL=117",
+        "C:\\Users\\Mikolaj> whoami\nmikolaj\\administrator"
+      ],
+      typeSpeed: 40,
+      backSpeed: 20,
+      backDelay: 2000,
+      loop: true,
+      showCursor: true,
+      cursorChar: '_'
+    });
+
+    // Pobieranie repozytoriów z GitHub i wyświetlanie w sekcji "Laby"
+   async function fetchGitHubRepos() {
+  const username = 'MikolajKocik';
+  const labsList = document.getElementById('labs-list');
+  labsList.innerHTML = '<div>Ładowanie repozytoriów...</div>';
+  try {
+    const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=6`);
+    if (!response.ok) throw new Error('Błąd pobierania danych z GitHub');
+    const repos = await response.json();
+    if (repos.length === 0) {
+      labsList.innerHTML = '<div>Brak dostępnych repozytoriów.</div>';
+      return;
+    }
+    labsList.innerHTML = '';
+    repos.forEach(repo => {
+      const card = document.createElement('div');
+      card.className = 'lab-card';
+      card.innerHTML = `
+        <div class="lab-icon">📁</div>
+        <div class="lab-title">${repo.name}</div>
+        <div class="lab-desc">${repo.description ? repo.description : 'Brak opisu'}</div>
+        <a class="lab-link" href="${repo.html_url}" target="_blank" rel="noopener noreferrer">Repozytorium</a>
+      `;
+      labsList.appendChild(card);
+    });
+  } catch (error) {
+    labsList.innerHTML = `<div>Błąd: ${error.message}</div>`;
+  }
+}
+fetchGitHubRepos();
+
+
+    // Ostatnie commity z GitHuba (publiczne)
+async function fetchGitHubCommits() {
+  const username = 'MikolajKocik'; // <-- Twój login GitHub
+  const commitsList = document.getElementById('commits-list');
+  commitsList.innerHTML = '<li>Ładowanie commitów...</li>';
+  try {
+    // Pobierz listę repozytoriów (max 3 najnowsze)
+    const reposResponse = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=3`);
+    const repos = await reposResponse.json();
+    let commitsFetched = 0;
+    let html = '';
+    for (const repo of repos) {
+      // Pobierz ostatnie commity z repozytorium
+      const commitsResponse = await fetch(`https://api.github.com/repos/${username}/${repo.name}/commits?per_page=2`);
+      const commits = await commitsResponse.json();
+      commits.forEach(commit => {
+        html += `<li>
+          <strong>${repo.name}</strong>: 
+          <span title="${commit.commit.message}">${commit.commit.message.substring(0, 50)}${commit.commit.message.length > 50 ? '...' : ''}</span>
+          <br>
+          <small>${commit.commit.author.name} – ${new Date(commit.commit.author.date).toLocaleString('pl-PL')}</small>
+          <br>
+          <a href="${commit.html_url}" target="_blank">Zobacz commit</a>
+        </li>`;
+        commitsFetched++;
+      });
+    }
+    commitsList.innerHTML = html || '<li>Brak commitów.</li>';
+  } catch (error) {
+    commitsList.innerHTML = `<li>Błąd: ${error.message}</li>`;
+  }
+}
+fetchGitHubCommits();
+
+    // Przełącznik trybu Dark/Light
+    const toggleBtn = document.getElementById('toggleThemeBtn');
+    toggleBtn.addEventListener('click', () => {
+      const isLight = document.body.style.backgroundColor === 'white';
+      if (isLight) {
+        document.body.style.backgroundColor = '#121212';
+        document.body.style.color = '#eee';
+        toggleBtn.setAttribute('aria-pressed', 'false');
+        toggleBtn.textContent = '🌙';
+      } else {
+        document.body.style.backgroundColor = 'white';
+        document.body.style.color = '#121212';
+        toggleBtn.setAttribute('aria-pressed', 'true');
+        toggleBtn.textContent = '☀️';
+      }
+    });
+  </script>
+</body>
+</html>
